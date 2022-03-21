@@ -56,3 +56,23 @@ class Answers(Base):
         return {'id': self.id, 'task_id': self.task_id, 'first_name': self.first_name,
                 'last_name': self.last_name, 'answer': self.answer}
 
+
+class TaskRequest(Base):
+    __tablename__ = "task_request"
+
+    id = Column(Integer, primary_key=True)
+    title = Column(Text, nullable=False)
+    description = Column(Text, nullable=False)
+    start = Column(Text, nullable=False)
+    comment = Column(Text, nullable=False)
+    status = Column(Integer, nullable=False)
+
+    def __init__(self, title: str, description: str, start: str, comment: str):
+        self.status = 1
+        self.title = title
+        self.description = description
+        self.start = start
+        self.comment = comment
+
+    def __repr__(self):
+        return '<RequestTask(id: %s, title: %s, description: %s)>' % (self.id, self.title, self.description)

@@ -2,7 +2,7 @@ from main import bot, dp, anti_flood
 from aiogram.types import Message
 from tools import sql
 from config import admin_id
-from tools.modeles import Answers
+from tools.modeles import Answers, TaskRequest
 
 
 @dp.message_handler(commands=['start'])
@@ -82,3 +82,27 @@ async def change_vis(message: Message):
     answer_id = message.text.replace('/best ', '')
     sql.update_best_answer(answer_id)
     return await bot.send_message(message.from_user.id, text="Ну все ок получается.")
+
+
+@dp.message_handler(lambda x: x.from_user.id == admin_id, commands=['tasks'])
+@dp.throttled(anti_flood, rate=5)
+async def get_tasks_r(message: Message):
+    tasks: list[TaskRequest] = sql.get_request_tasks()
+    for i in tasks:
+        text = f'Задача: {i.id}\n\nНазвание: {i.title}\n\nЗадание: ' \
+               f'{i.description}\n\nСтарт: {i.start}\n\nКоммент: {i.comment}'
+        try:
+            await bot.send_message(message.from_user.id, text=text)
+        except Exception as ex:
+            print(ex)
+    return await bot.send_message(message.from_user.id, text="Ну все ок получается.")
+
+
+@dp.message_handler(lambda x: x.from_user.id == admin_id, commands=['new'])
+@dp.throttled(anti_flood, rate=5)
+async def new_task(message: Message):
+    if len(message.text.split()) != 3:
+        return await bot.send_message(message.from_user.id, text='Дурак')
+    r_id, vis = message.text.split()[1:]
+    sql.set_vis_request(int(r_id), int(vis))
+    return await bot.send_message(message.from_user.id, text="Победили")
