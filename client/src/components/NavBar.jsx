@@ -7,8 +7,9 @@ const NavBar = () => {
         <div>
             <ul className="menu cf">
                 <Link to="/"><li>Главная</li></Link>
-                <Link to="/request_task"><li>Предложка</li></Link>
                 <Link to="/archive"><li>Архив</li></Link>
+                <Link to="/journal"><li>Журнал</li></Link>
+                <Link to="/request_task"><li>Предложка</li></Link>
             </ul>
         </div>
     );
