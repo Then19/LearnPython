@@ -40,7 +40,7 @@ def get_answer_by_id(answer_id: int) -> dict:
 def get_users():
     """Список пользователей кто давал ответ"""
     ans: list[Answers] = Answers.query.all()
-    users = set([f'{i.last_name} {i.first_name}'.title() for i in ans])
+    users = set([f'{i.last_name} {i.first_name}'.title().strip() for i in ans])
     return sorted(list(users))
 
 
