@@ -8,17 +8,17 @@ const Journal = () => {
     const [journal, setJournal] = useState([])
 
     async function getUsersApi() {
-        const response = await axios.get("http://192.168.1.52:5000/journal/users")
+        const response = await axios.get("https://api.imsr.su/journal/users")
         setUsers(response.data.data)
     }
 
     async function getJournalApi(userName) {
         console.log(userName.split(' ').length)
         if (userName.split(' ').length === 2){
-            const response = await axios.get("http://192.168.1.52:5000/journal/jr?name=" + userName)
+            const response = await axios.get("https://api.imsr.su/journal/jr?name=" + userName)
             setJournal(response.data.data)
         } else {
-            const response = await axios.get("http://192.168.1.52:5000/journal/jr")
+            const response = await axios.get("https://api.imsr.su/journal/jr")
             setJournal(response.data.data)
         }
         console.log(journal)
