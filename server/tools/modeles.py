@@ -67,3 +67,19 @@ class TaskRequest(db.Model):
 
     def __repr__(self):
         return '<RequestTask(id: %s, title: %s, description: %s)>' % (self.id, self.title, self.description)
+
+
+class Journal(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    first_name = db.Column(db.VARCHAR(20), nullable=False)
+    last_name = db.Column(db.VARCHAR(20), nullable=False)
+    task_id = db.Column(db.Integer, nullable=False)
+    answer_id = db.Column(db.Integer, nullable=False)
+    grade = db.Column(db.Integer, nullable=False)
+    comment = db.Column(db.Text, nullable=False)
+
+    def __repr__(self):
+        return '<Journal(id: %s, last_name: %s, gradle: %s)>' % (self.id, self.last_name, self.grade)
+
+
+
