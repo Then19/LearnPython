@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import '../styles/tasks.css'
 import axios from "axios";
 import {showToast} from "../tools/toast";
+import cfg from '../config.json'
 
 
 const TaskRequest = () => {
@@ -19,7 +20,7 @@ const TaskRequest = () => {
         data.append('start_code', taskStartCode)
         data.append('comment', taskComment)
         const response = await axios({
-            url: "https://api.imsr.su/add_request",
+            url: cfg.apiUrl + "/add_request",
             method: 'POST',
             data: data,
             headers: {

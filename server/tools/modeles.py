@@ -81,5 +81,7 @@ class Journal(db.Model):
     def __repr__(self):
         return '<Journal(id: %s, last_name: %s, gradle: %s)>' % (self.id, self.last_name, self.grade)
 
-
-
+    def get_json(self) -> dict:
+        """Возвращает все данные в виде словаря"""
+        return {'id': self.id, 'task_id': self.task_id, 'first_name': self.first_name,
+                'last_name': self.last_name, 'answer_id': self.answer_id, 'grade': self.grade, 'comment': self.comment}

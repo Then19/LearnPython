@@ -17,6 +17,7 @@
 .jr-block {
     display: flex;
     flex-wrap: wrap;
+    margin-top: 20px;
 }
 
 .jr-task {
@@ -57,4 +58,18 @@
     font-size: 25px;
     padding-top: 30px;
     color: #d5d5d5;
+}
+
+.jr-answer {
+    font-size: 18px;
+    color: #d5d5d5;
+    margin-top: 15px;
+    white-space: pre-wrap;
+    word-spacing: 5px;
+}
+
+.jr-open-grade {
+    padding: 20px 30px;
+    border: 6px solid #226514;
+    font-family: 'Exo 2', sans-serif;
 }

@@ -65,6 +65,19 @@ def get_journal(name: str):
     return list(journal.items())
 
 
+def get_user_answers(name: str, task_id: str):
+    """Возвращает словарь с ответами пользователя, оценкой и комментарием"""
+    first_name = name.split()[-1]
+    last_name = name.split()[0]
+
+    answers = Answers.query.filter_by(first_name=first_name, last_name=last_name, task_id=task_id).all()
+    grade = Journal.query.filter_by(first_name=first_name, last_name=last_name, task_id=task_id).all()
+
+    last_grade = grade[-1].get_json() if grade else {}
+
+    return {'answers': [i.get_json() for i in answers], 'grade': last_grade}
+
+
 if __name__ == "__main__":
     db.create_all()
 

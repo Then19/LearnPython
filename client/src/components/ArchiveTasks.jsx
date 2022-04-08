@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import '../styles/tasks.css'
+import cfg from '../config.json'
 
 
 const ArchiveTasks = () => {
@@ -13,7 +14,7 @@ const ArchiveTasks = () => {
 
 
     async function getItemApi() {
-        const response = await axios.get("https://api.imsr.su/archive/get_tasks")
+        const response = await axios.get(cfg.apiUrl + "/archive/get_tasks")
         setTasks(response.data.data)
     }
 
@@ -29,7 +30,7 @@ const ArchiveTasks = () => {
     }
 
     async function getAnswer(id){
-        const response = await axios.get("https://api.imsr.su/get_answer?id=" + id)
+        const response = await axios.get(cfg.apiUrl + "/get_answer?id=" + id)
         setAnswer(response.data)
     }
 
@@ -40,7 +41,6 @@ const ArchiveTasks = () => {
         }
         setLastShow(id)
         hiddenAll()
-        console.log(answer)
         const a = document.getElementById('description ' + id)
         a.hidden = false
     }

@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import '../styles/tasks.css'
 import {showToast} from "../tools/toast";
+import cfg from '../config.json'
 
 const Tasks = () => {
     const [tasks, setTasks] = useState([])
@@ -13,7 +14,7 @@ const Tasks = () => {
     const [lastShow, setLastShow] = useState('')
 
     async function getItemApi() {
-        const response = await axios.get("https://api.imsr.su/main/get_tasks")
+        const response = await axios.get(cfg.apiUrl + "/main/get_tasks")
         setTasks(response.data.data)
     }
 
@@ -49,7 +50,7 @@ const Tasks = () => {
         data.append('answer', taskAnswer)
         data.append('task_id', id)
         const response = await axios({
-            url: "https://api.imsr.su/add_answer",
+            url: cfg.apiUrl + "/add_answer",
             method: 'POST',
             data: data,
             headers: {
