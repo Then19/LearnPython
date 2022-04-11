@@ -87,6 +87,7 @@ def set_vis_request(request_id: int, vis: int):
         add_new_task(t.title, t.description, t.start)
 
 
+@reconnect
 def set_grade(answer_id, grade, comment):
     session.commit()
     ans = session.query(Answers).filter_by(id=answer_id).first()
