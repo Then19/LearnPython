@@ -99,10 +99,19 @@ async def get_tasks_r(message: Message):
 
 
 @dp.message_handler(lambda x: x.from_user.id == admin_id, commands=['new'])
-@dp.throttled(anti_flood, rate=5)
+@dp.throttled(anti_flood, rate=1)
 async def new_task(message: Message):
     if len(message.text.split()) != 3:
         return await bot.send_message(message.from_user.id, text='Дурак')
     r_id, vis = message.text.split()[1:]
     sql.set_vis_request(int(r_id), int(vis))
     return await bot.send_message(message.from_user.id, text="Победили")
+
+
+@dp.message_handler(lambda x: x.from_user.id == admin_id, commands=['grade'])
+@dp.throttled(anti_flood, rate=1)
+async def new_task(message: Message):
+    ans_id, grade = message.text.split()[1:3]
+    comment = message.text.replace(f'/grade {ans_id} {grade} ', '')
+    sql.set_grade(ans_id, grade, comment)
+    return await bot.send_message(message.from_user.id, text="ok")

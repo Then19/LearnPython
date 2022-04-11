@@ -1,6 +1,6 @@
 from sqlalchemy import create_engine, Integer, Column, VARCHAR, Table, select, update
 from sqlalchemy.orm import relationship, backref, sessionmaker, joinedload
-from tools.modeles import Answers, Tasks, Base, TaskRequest
+from tools.modeles import Answers, Tasks, Base, TaskRequest, Journal
 from config import sql_login
 
 
@@ -85,3 +85,10 @@ def set_vis_request(request_id: int, vis: int):
     if vis:
         t: TaskRequest = session.query(TaskRequest).filter_by(id=request_id).first()
         add_new_task(t.title, t.description, t.start)
+
+
+def set_grade(answer_id, grade, comment):
+    session.commit()
+    ans = session.query(Answers).filter_by(id=answer_id).first()
+    session.add(Journal(ans, grade, comment))
+    session.commit()

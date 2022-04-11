@@ -76,3 +76,32 @@ class TaskRequest(Base):
 
     def __repr__(self):
         return '<RequestTask(id: %s, title: %s, description: %s)>' % (self.id, self.title, self.description)
+
+
+class Journal(Base):
+    __tablename__ = "journal"
+
+    id = Column(Integer, primary_key=True)
+    first_name = Column(VARCHAR(20), nullable=False)
+    last_name = Column(VARCHAR(20), nullable=False)
+    task_id = Column(Integer, nullable=False)
+    answer_id = Column(Integer, nullable=False)
+    grade = Column(Integer, nullable=False)
+    comment = Column(Text, nullable=False)
+
+    def __init__(self, answer: Answers, grade: int, comment: str):
+        self.first_name = answer.first_name
+        self.last_name = answer.last_name
+        self.task_id = answer.task_id
+        self.answer_id = answer.id
+        self.grade = grade
+        self.comment = comment
+
+    def __repr__(self):
+        return '<Journal(id: %s, last_name: %s, gradle: %s)>' % (self.id, self.last_name, self.grade)
+
+    def get_json(self) -> dict:
+        """Возвращает все данные в виде словаря"""
+        return {'id': self.id, 'task_id': self.task_id, 'first_name': self.first_name,
+                'last_name': self.last_name, 'answer_id': self.answer_id, 'grade': self.grade,
+                'comment': self.comment}
