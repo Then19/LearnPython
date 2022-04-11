@@ -1,5 +1,6 @@
 from app import db
 from tools.modeles import Answers, Tasks, TaskRequest, Journal
+from .validation import validate_fname_lname as valid
 
 
 def get_main_tasks() -> list[dict]:
@@ -40,7 +41,8 @@ def get_answer_by_id(answer_id: int) -> dict:
 def get_users():
     """Список пользователей кто давал ответ"""
     ans: list[Answers] = Answers.query.all()
-    users = set([f'{i.last_name} {i.first_name}'.title().strip() for i in ans])
+    users_list = [f'{i.last_name} {i.first_name}'.title().strip() for i in ans]
+    users = set([i for i in users_list if valid(i)])
     return sorted(list(users))
 
 
