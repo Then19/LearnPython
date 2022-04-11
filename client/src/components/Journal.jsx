@@ -48,6 +48,8 @@ const Journal = () => {
             return "jr-one-task"
         } else if (select === 2) {
             return "jr-two-task"
+        } else if (select === 3) {
+            return "jr-three-task"
         }else {
             return "jr-zero-task"
         }
@@ -77,8 +79,12 @@ const Journal = () => {
         if (ansData.grade.grade === undefined){
             return
         }
+        let color = "jr-grade-color-green"
+        if (ansData.grade.grade < 6){
+            color = "jr-grade-color-red"
+        }
         return (
-            <div className="jr-open-grade">
+            <div className={"jr-open-grade " + color}>
                 <p className="jr-answer">Оценка: {ansData.grade.grade}/12</p>
                 <p className="jr-answer">Комментарий: {ansData.grade.comment}</p>
             </div>

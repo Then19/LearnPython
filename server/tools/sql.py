@@ -60,7 +60,7 @@ def get_journal(name: str):
 
     jr: list[Journal] = Journal.query.filter_by(first_name=first_name, last_name=last_name).all()
     for i in jr:
-        journal[i.task_id] = 2
+        journal[i.task_id] = 2 if i.grade > 5 else 3
 
     return list(journal.items())
 

@@ -49,7 +49,12 @@
 
 .jr-two-task {
     background-color: #176e15;
-    border: #701717 2px solid;
+    border: #8a2121 2px solid;
+}
+
+.jr-three-task {
+    background-color: #8a2121;
+    border: #34495e 2px solid;
 }
 
 .jr-desc {
@@ -70,6 +75,12 @@
 
 .jr-open-grade {
     padding: 20px 30px;
-    border: 6px solid #226514;
     font-family: 'Exo 2', sans-serif;
+}
+
+.jr-grade-color-green{
+    border: 6px solid #226514;
+}
+.jr-grade-color-red{
+    border: 6px solid #8a2121;
 }
