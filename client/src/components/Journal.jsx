@@ -7,9 +7,17 @@ import cfg from '../config.json'
 const Journal = () => {
     const [users, setUsers] = useState([])
     const [journal, setJournal] = useState([])
-    const [selectUser, setSelectUser] = useState('')
+    const [selectUser, setSelectUser] = useState(getUserLocal())
     const [ansData, setAnsData] = useState({answers: [], grade: {}})
     const [showAns, setShowAns] = useState({})
+
+    function getUserLocal(){
+        const localUser = localStorage.getItem('selectUser')
+        if (localUser != null) {
+            return localUser
+        }
+        return ""
+    }
 
     async function getUsersApi() {
         const response = await axios.get(cfg.apiUrl + "/journal/users")
@@ -32,16 +40,19 @@ const Journal = () => {
         setAnsData(response.data.data)
     }
 
-    useEffect(() => {
-        getUsersApi()
-    }, [])
 
     function getJournal(userName){
         getJournalApi(userName)
+        localStorage.setItem('selectUser', userName)
         setSelectUser(userName)
         setAnsData({answers: [], grade: {}})
         setShowAns({})
     }
+
+    useEffect(() => {
+        getUsersApi()
+        getJournalApi(getUserLocal())
+    }, [])
 
     function getColorTask(select) {
         if (select === 1) {
@@ -95,7 +106,7 @@ const Journal = () => {
         <div className="Tasks-main">
             <div className={"jr-selector"}>
                 <select className={"jr-selector-select"} name="" id="" onChange={event => getJournal(event.target.value)}>
-                    <option className={"jr-selector-options"} defaultChecked value="">Выберите</option>
+                    <option className={"jr-selector-options"} defaultChecked value="">{selectUser}</option>
                     {users.map(user =>
                         <option key={user} value={user}>{user}</option>
                     )}
